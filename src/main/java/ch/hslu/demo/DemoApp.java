@@ -16,8 +16,16 @@
  */
 package ch.hslu.demo;
 
+import oracle.OracleManager;
+import oracle.OracleWriter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.json.JSONObject;
+import qubic.EditableQubicSpecification;
+import qubic.QubicReader;
+import qubic.QubicWriter;
+
+import java.util.List;
 
 /**
  * Demo-Applikation für {@link ch.hslu.demo.Point}-Klasse.
@@ -42,7 +50,37 @@ public final class DemoApp {
      * Main-Methode.
      * @param args Startargumente.
      */
-    public static void main(final String[] args) {
+    public static void main(final String[] args) throws InterruptedException {
         LOGGER.info("IOTA Demonstrator start");
+
+        QubicWriter qubicWriter = new QubicWriter();
+        EditableQubicSpecification eqs = qubicWriter.getEditable();
+
+        final int runtimeLimit = 9;
+        final int hashPeriodDuration = 17;
+        final String code = "return(33);";
+
+        eqs.setRuntimeLimit(runtimeLimit);
+        eqs.setHashPeriodDuration(hashPeriodDuration);
+        eqs.setCode(code);
+
+        qubicWriter.publishQubicTransaction();
+        String qubicTransactionHash = qubicWriter.getQubicTransactionHash();
+        String qubicId = qubicWriter.getID();
+        QubicReader qubicReader = new QubicReader(qubicId);
+        OracleWriter oracleWriter = new OracleWriter(qubicReader);
+
+
+        OracleManager om = new OracleManager(oracleWriter);
+        om.start();
+
+        List<JSONObject> applicants = qubicWriter.fetchApplications();
+        while(applicants.isEmpty()) {
+            Thread.sleep(1000);
+            applicants = qubicWriter.fetchApplications();
+        }
+
+        Thread.sleep(5000);
+        LOGGER.info("IOTA Demonstrator finished");
     }
 }

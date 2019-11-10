@@ -30,7 +30,7 @@ public class DemoAppIT {
      * Sinnvoll für Interaktion mit Dateisystem.
      */
     @Test
-    public final void testTestParameter() {
+    public final void testTestParameter() throws InterruptedException {
         DemoApp.main(new String[0]);
         assertTrue(true); // FAKE Test, nur für Demo!
     }
