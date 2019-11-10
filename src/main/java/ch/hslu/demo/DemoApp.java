@@ -43,9 +43,6 @@ public final class DemoApp {
      * @param args Startargumente.
      */
     public static void main(final String[] args) {
-        final Point point = new Point(COR_X, COR_Y);
-        final int quadrant = point.getQuadrant();
-        new QubicLiteDemo().CreateNewQubic();
-        LOGGER.info(point.toString() + " befindet sich in Quadrant: " + quadrant);
+        LOGGER.info("IOTA Demonstrator start");
     }
 }
