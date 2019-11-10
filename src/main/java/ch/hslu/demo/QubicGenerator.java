@@ -2,6 +2,7 @@ package ch.hslu.demo;
 
 import constants.GeneralConstants;
 import constants.TangleJSONConstants;
+import iam.IAMWriter;
 import org.json.JSONObject;
 import qubic.QubicSpecification;
 

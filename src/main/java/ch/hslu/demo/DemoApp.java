@@ -45,6 +45,7 @@ public final class DemoApp {
     public static void main(final String[] args) {
         final Point point = new Point(COR_X, COR_Y);
         final int quadrant = point.getQuadrant();
+        new QubicLiteDemo().CreateNewQubic();
         LOGGER.info(point.toString() + " befindet sich in Quadrant: " + quadrant);
     }
 }
