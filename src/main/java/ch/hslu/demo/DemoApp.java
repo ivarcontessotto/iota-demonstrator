@@ -27,9 +27,6 @@ import qubic.QubicWriter;
 
 import java.util.List;
 
-/**
- * Demo-Applikation für {@link ch.hslu.demo.Point}-Klasse.
- */
 public final class DemoApp {
 
     private static final Logger LOGGER = LogManager.getLogger(DemoApp.class);
