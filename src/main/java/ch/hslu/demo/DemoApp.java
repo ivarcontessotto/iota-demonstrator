@@ -31,12 +31,6 @@ public final class DemoApp {
 
     private static final Logger LOGGER = LogManager.getLogger(DemoApp.class);
 
-    /** X-Wert. Beispiel. */
-    private static final int COR_X = 2;
-
-    /** Y-Wert. Beispiel. */
-    private static final int COR_Y = -1;
-
     /**
      * Privater Konstruktor.
      */
@@ -50,34 +44,37 @@ public final class DemoApp {
     public static void main(final String[] args) throws InterruptedException {
         LOGGER.info("IOTA Demonstrator start");
 
-        QubicWriter qubicWriter = new QubicWriter();
-        EditableQubicSpecification eqs = qubicWriter.getEditable();
+        LOGGER.info("Start Qubic");
+        new Thread(new Runnable() {
+            public void run() {
+                new QubicApplication();
+            }
+        }).start();
 
-        final int runtimeLimit = 9;
-        final int hashPeriodDuration = 17;
-        final String code = "return(33);";
+        Thread.sleep(10000);
+        new Thread(new Runnable() {
+            public void run() {
+                new OracleApplication("pepper");
+            }
+        }).start();
 
-        eqs.setRuntimeLimit(runtimeLimit);
-        eqs.setHashPeriodDuration(hashPeriodDuration);
-        eqs.setCode(code);
+        new Thread(new Runnable() {
+            public void run() {
+                new OracleApplication("pepperino");
+            }
+        }).start();
 
-        qubicWriter.publishQubicTransaction();
-        String qubicTransactionHash = qubicWriter.getQubicTransactionHash();
-        String qubicId = qubicWriter.getID();
-        QubicReader qubicReader = new QubicReader(qubicId);
-        OracleWriter oracleWriter = new OracleWriter(qubicReader);
+        new Thread(new Runnable() {
+            public void run() {
+                new OracleApplication("pepperinono");
+            }
+        }).start();
 
-
-        OracleManager om = new OracleManager(oracleWriter);
-        om.start();
-
-        List<JSONObject> applicants = qubicWriter.fetchApplications();
-        while(applicants.isEmpty()) {
-            Thread.sleep(1000);
-            applicants = qubicWriter.fetchApplications();
-        }
-
-        Thread.sleep(5000);
-        LOGGER.info("IOTA Demonstrator finished");
+        Thread.sleep(60000);
+        new Thread(new Runnable() {
+            public void run() {
+                new QubicResultViewer();
+            }
+        }).start();
     }
 }
