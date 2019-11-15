@@ -16,14 +16,10 @@ public final class QubicResultViewer {
      * Main-Methode.
      * @param args Startargumente.
      */
-    public static void main(final String[] args) throws InterruptedException {
+    public static void main(final String[] args) {
         LOGGER.info("Initiate new result viewer");
 
-        new Thread(new Runnable() {
-            public void run() {
-                new QubicResultViewerInstance();
-            }
-        }).start();
+        new Thread(QubicResultViewerInstance::new).start();
 
         while (true) {
             try {

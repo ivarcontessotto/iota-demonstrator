@@ -20,10 +20,8 @@ import java.util.List;
 public class OracleInstance{
     private final static Logger LOGGER = LogManager.getLogger(OracleApplication.class);
     private final static String KEYWORD = "IOTAISLIFE3";
-    private String name;
 
-    public OracleInstance(String name){
-        this.name = name;
+    public OracleInstance(){
         this.StartOracle();
     }
 
@@ -37,22 +35,22 @@ public class OracleInstance{
         QubicReader qubicReader;
         if (promotedQubics.size() > 0) {
             String firstPromotedQubicId = promotedQubics.get(0);
-            LOGGER.info("First Promoted Qubic found: " + firstPromotedQubicId + " for Oracle " + name);
+            LOGGER.info("First Promoted Qubic found: " + firstPromotedQubicId );
             qubicReader = new QubicReader(firstPromotedQubicId);
         }
         else {
-            LOGGER.info("No promoted Qubics found for Oracle " + name);
+            LOGGER.info("No promoted Qubics found ");
             return;
         }
 
-        Path argsFilePath = Paths.get("argsfile" + name + ".txt");
+        Path argsFilePath = Paths.get("argsfile.txt");
         LOGGER.info("Create Args File: " + argsFilePath.toAbsolutePath().toString());
         createArgsFile(argsFilePath, Arrays.asList(50));
 
-        LOGGER.info("Create Oracle " + name);
-        OracleWriter oracleWriter = new OracleWriter(rootAddressForTest, qubicReader, argsFilePath, "Oracle" + name);
+        LOGGER.info("Create Oracle");
+        OracleWriter oracleWriter = new OracleWriter(rootAddressForTest, qubicReader, argsFilePath);
         LOGGER.info("Oracle ID (IAM Identity): " + oracleWriter.getID());
-        OracleManager oracleManager = new OracleManager(oracleWriter, "OracleManager" + name);
+        OracleManager oracleManager = new OracleManager(oracleWriter, "OracleManager");
         LOGGER.info("Start Oracle Lifecycle");
         oracleManager.start();
     }
