@@ -44,37 +44,5 @@ public final class DemoApp {
     public static void main(final String[] args) throws InterruptedException {
         LOGGER.info("IOTA Demonstrator start");
 
-        LOGGER.info("Start Qubic");
-        new Thread(new Runnable() {
-            public void run() {
-                new QubicApplication();
-            }
-        }).start();
-
-        Thread.sleep(10000);
-        new Thread(new Runnable() {
-            public void run() {
-                new OracleApplication("pepper");
-            }
-        }).start();
-
-        new Thread(new Runnable() {
-            public void run() {
-                new OracleApplication("pepperino");
-            }
-        }).start();
-
-        new Thread(new Runnable() {
-            public void run() {
-                new OracleApplication("pepperinono");
-            }
-        }).start();
-
-        Thread.sleep(60000);
-        new Thread(new Runnable() {
-            public void run() {
-                new QubicResultViewer();
-            }
-        }).start();
     }
 }
