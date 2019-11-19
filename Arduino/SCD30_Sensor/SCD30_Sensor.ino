@@ -24,18 +24,19 @@ void setup()
   Wire.begin();
   Serial.begin(9600);
   airSensor.begin(); //This will cause readings to occur every two seconds
+  airSensor.setAltitudeCompensation(426); //Set altitude of the sensor in m
 }
 
 void loop()
 {
   if (airSensor.dataAvailable())
   {
-    Serial.print("temp:");
-    Serial.print(airSensor.getTemperature(), 2); // Second parameter for decimal precision 
+    Serial.print("temperature:");
+    Serial.print(airSensor.getTemperature(), 3); // Second parameter for decimal precision 
     Serial.print("\n");
        
     Serial.print("humidity:");
-    Serial.print(airSensor.getHumidity(), 2);
+    Serial.print(airSensor.getHumidity(), 3);
     Serial.print("\n");
   }
 
