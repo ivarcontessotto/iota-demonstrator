@@ -7,28 +7,13 @@
         "info": ""
     },
     {
-        "id": "57d4e3c1.6e659c",
-        "type": "debug",
-        "z": "a0154760.97ad68",
-        "name": "ArduinoMega_Debug_Temp",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "x": 1260,
-        "y": 40,
-        "wires": []
-    },
-    {
         "id": "34b00d8.d3aacf2",
         "type": "serial in",
         "z": "a0154760.97ad68",
-        "name": "ArduinoMega_Serial_In",
+        "name": "SCD30_Serial",
         "serial": "9525f378.f6bc6",
-        "x": 150,
-        "y": 120,
+        "x": 120,
+        "y": 169,
         "wires": [
             [
                 "230076dc.4ea22a"
@@ -39,10 +24,10 @@
         "id": "ca20d3ae.ba1fc",
         "type": "serial in",
         "z": "a0154760.97ad68",
-        "name": "ArduinoNano_Serial_In",
+        "name": "DHT22_Serial",
         "serial": "df9c7e98.76f53",
-        "x": 140,
-        "y": 280,
+        "x": 110,
+        "y": 417,
         "wires": [
             [
                 "77ee07c4.bd0e18"
@@ -58,17 +43,17 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "x": 1260,
-        "y": 260,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 1080,
+        "y": 340,
         "wires": []
     },
     {
         "id": "77ee07c4.bd0e18",
         "type": "switch",
         "z": "a0154760.97ad68",
-        "name": "ArduinoNano_Switch",
+        "name": "DHT22_Switch",
         "property": "payload",
         "propertyType": "msg",
         "rules": [
@@ -88,8 +73,8 @@
         "checkall": "false",
         "repair": false,
         "outputs": 2,
-        "x": 400,
-        "y": 280,
+        "x": 293,
+        "y": 417,
         "wires": [
             [
                 "f20d52fc.7259d"
@@ -103,7 +88,7 @@
         "id": "230076dc.4ea22a",
         "type": "switch",
         "z": "a0154760.97ad68",
-        "name": "ArduinoMega_Switch",
+        "name": "SCD30_Switch",
         "property": "payload",
         "propertyType": "msg",
         "rules": [
@@ -123,8 +108,8 @@
         "checkall": "false",
         "repair": false,
         "outputs": 2,
-        "x": 400,
-        "y": 120,
+        "x": 300,
+        "y": 169,
         "wires": [
             [
                 "4ff8aa1a.8571f4"
@@ -138,15 +123,15 @@
         "id": "3e470c83.3d1fb4",
         "type": "debug",
         "z": "a0154760.97ad68",
-        "name": "ArduinoMega_Debug_Humidity",
+        "name": "SCD30_Humid_Debug",
         "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "x": 1270,
-        "y": 140,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 1060,
+        "y": 260,
         "wires": []
     },
     {
@@ -158,23 +143,23 @@
         "tosidebar": true,
         "console": false,
         "tostatus": false,
-        "complete": "true",
-        "targetType": "full",
-        "x": 1270,
-        "y": 360,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 1090,
+        "y": 500,
         "wires": []
     },
     {
         "id": "4ff8aa1a.8571f4",
         "type": "change",
         "z": "a0154760.97ad68",
-        "name": "Temperature_TransformPayload",
+        "name": "SCD30_Temp_Transform",
         "rules": [
             {
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "$number(\t   $substringBefore(\t       $substringAfter(payload, \"temperature:\"),\t       \"\\n\"\t   )\t)",
+                "to": "{\"SensorName\": \"SCD30\", \"SensorType\": \"Temperature\", \"Unit\": \"Degree Celsius\", \"Value\": $number($substringBefore($substringAfter(payload, \"temperature:\"),\"\\n\"))}",
                 "tot": "jsonata"
             }
         ],
@@ -183,8 +168,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 710,
-        "y": 40,
+        "x": 550,
+        "y": 80,
         "wires": [
             [
                 "26e4db62.db5654"
@@ -195,13 +180,13 @@
         "id": "f20d52fc.7259d",
         "type": "change",
         "z": "a0154760.97ad68",
-        "name": "Temperature_TransformPayload",
+        "name": "DHT22_Temp_Transform",
         "rules": [
             {
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "$number(\t   $substringBefore(\t       $substringAfter(payload, \"temperature:\"),\t       \"\\n\"\t   )\t)",
+                "to": "{\"SensorName\": \"DHT22\", \"SensorType\": \"Temperature\", \"Unit\": \"Degree Celsius\", \"Value\": $number($substringBefore($substringAfter(payload, \"temperature:\"),\"\\n\"))}",
                 "tot": "jsonata"
             }
         ],
@@ -210,8 +195,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 710,
-        "y": 260,
+        "x": 550,
+        "y": 340,
         "wires": [
             [
                 "1037a937.ce3717"
@@ -222,13 +207,13 @@
         "id": "8281be3a.f25cb",
         "type": "change",
         "z": "a0154760.97ad68",
-        "name": "Humidity_TransformPayload",
+        "name": "SCD30_Humid_Transform",
         "rules": [
             {
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "$number(\t   $substringBefore(\t       $substringAfter(payload, \"humidity:\"),\t       \"\\n\"\t   )\t)",
+                "to": "{\"SensorName\": \"SCD30\", \"SensorType\": \"Humidity\", \"Unit\": \"Percent\", \"Value\": $number($substringBefore($substringAfter(payload, \"humidity:\"),\"\\n\"))}",
                 "tot": "jsonata"
             }
         ],
@@ -237,8 +222,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 700,
-        "y": 140,
+        "x": 560,
+        "y": 260,
         "wires": [
             [
                 "d90829b6.5416e8"
@@ -249,13 +234,13 @@
         "id": "20f0c848.5edb18",
         "type": "change",
         "z": "a0154760.97ad68",
-        "name": "Humidity_TransformPayload",
+        "name": "DHT22_Humid_Transform",
         "rules": [
             {
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "$number(\t   $substringBefore(\t       $substringAfter(payload, \"humidity:\"),\t       \"\\n\"\t   )\t)",
+                "to": "{\"SensorName\": \"DHT22\", \"SensorType\": \"Humidity\", \"Unit\": \"Percent\", \"Value\": $number($substringBefore($substringAfter(payload, \"humidity:\"),\"\\n\"))}",
                 "tot": "jsonata"
             }
         ],
@@ -264,8 +249,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 700,
-        "y": 360,
+        "x": 550,
+        "y": 500,
         "wires": [
             [
                 "4078ef13.4d9d2"
@@ -276,18 +261,18 @@
         "id": "26e4db62.db5654",
         "type": "smooth",
         "z": "a0154760.97ad68",
-        "name": "Mean_10_Values",
-        "property": "payload",
+        "name": "Mean_30_Values",
+        "property": "payload.Value",
         "action": "mean",
-        "count": "10",
+        "count": "30",
         "round": "3",
         "mult": "single",
         "reduce": true,
-        "x": 990,
-        "y": 40,
+        "x": 810,
+        "y": 80,
         "wires": [
             [
-                "57d4e3c1.6e659c"
+                "775d2b4d.9c8674"
             ]
         ]
     },
@@ -295,15 +280,15 @@
         "id": "d90829b6.5416e8",
         "type": "smooth",
         "z": "a0154760.97ad68",
-        "name": "Mean_10_Values",
-        "property": "payload",
+        "name": "Mean_30_Values",
+        "property": "payload.Value",
         "action": "mean",
-        "count": "10",
+        "count": "30",
         "round": "3",
         "mult": "single",
         "reduce": true,
-        "x": 990,
-        "y": 140,
+        "x": 810,
+        "y": 260,
         "wires": [
             [
                 "3e470c83.3d1fb4"
@@ -314,15 +299,15 @@
         "id": "1037a937.ce3717",
         "type": "smooth",
         "z": "a0154760.97ad68",
-        "name": "Mean_10_Values",
-        "property": "payload",
+        "name": "Mean_30_Values",
+        "property": "payload.Value",
         "action": "mean",
-        "count": "10",
-        "round": "3",
+        "count": "30",
+        "round": "2",
         "mult": "single",
         "reduce": true,
-        "x": 990,
-        "y": 260,
+        "x": 810,
+        "y": 340,
         "wires": [
             [
                 "261b1e52.fff7f2"
@@ -333,20 +318,50 @@
         "id": "4078ef13.4d9d2",
         "type": "smooth",
         "z": "a0154760.97ad68",
-        "name": "Mean_10_Values",
-        "property": "payload",
+        "name": "Mean_30_Values",
+        "property": "payload.Value",
         "action": "mean",
-        "count": "10",
-        "round": "3",
+        "count": "30",
+        "round": "2",
         "mult": "single",
         "reduce": true,
-        "x": 990,
-        "y": 360,
+        "x": 810,
+        "y": 500,
         "wires": [
             [
                 "71308c9c.7e5444"
             ]
         ]
+    },
+    {
+        "id": "7eed948c.64e5dc",
+        "type": "debug",
+        "z": "a0154760.97ad68",
+        "name": "SCD30_Temp_LastPublishedRoot",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 1280,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "775d2b4d.9c8674",
+        "type": "debug",
+        "z": "a0154760.97ad68",
+        "name": "SCD30_Temp_Debug",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 1080,
+        "y": 80,
+        "wires": []
     },
     {
         "id": "9525f378.f6bc6",
