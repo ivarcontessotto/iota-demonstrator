@@ -22,10 +22,7 @@ SCD30 airSensor;
 void setup()
 {
   Wire.begin();
-
   Serial.begin(9600);
-  Serial.println("SCD30 Example");
-
   airSensor.begin(); //This will cause readings to occur every two seconds
 }
 
@@ -33,19 +30,14 @@ void loop()
 {
   if (airSensor.dataAvailable())
   {
-    Serial.print("co2(ppm):");
-    Serial.print(airSensor.getCO2());
-
-    Serial.print(" temp(C):");
-    Serial.print(airSensor.getTemperature(), 2); // Second parameter for decimal precision
-
-    Serial.print(" humidity(%):");
+    Serial.print("temp:");
+    Serial.print(airSensor.getTemperature(), 2); // Second parameter for decimal precision 
+    Serial.print("\n");
+       
+    Serial.print("humidity:");
     Serial.print(airSensor.getHumidity(), 2);
-
-    Serial.println();
+    Serial.print("\n");
   }
-  else
-    Serial.println("No data");
 
   delay(1000);
 }

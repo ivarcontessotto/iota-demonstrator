@@ -26,30 +26,24 @@ DHT dht(DHTPIN, DHTTYPE);
 
 void setup() {
   Serial.begin(9600);
-  Serial.println("DHT22 Testprogramm");
   dht.begin();
 }
 
-void loop() {
-  // Wait a few seconds between measurements.
-  delay(2000);                     // Hier definieren wir die Verweilzeit die gewartet wird  
-                                   // bis der Sensor wieder ausgelesen wird. Da der DHT11  
-                                   // auch ca. 2 Sekunden hat um seine Werte zuaktualisieren
-                                   // macht es keinen sinn ihn schneller auszulesen!
-                                    
-  float h = dht.readHumidity();    // Lesen der Luftfeuchtigkeit und speichern in die Variable h
-  float t = dht.readTemperature(); // Lesen der Temperatur in °C und speichern in die Variable t
+void loop() {                  
+  float t = dht.readTemperature();                 
+  float h = dht.readHumidity();
   
-/*********************( Überprüfen ob alles richtig Ausgelesen wurde )*********************/ 
-  if (isnan(h) || isnan(t)) {       
-    Serial.println("Fehler beim auslesen des Sensors!");
-    return;
+  if (!isnan(h)) {       
+    Serial.print("temp:");
+    Serial.print(t);
+    Serial.print("\n");
   }
 
-  // Nun senden wir die gemessenen Werte an den PC dise werden wir im Seriellem Monitor sehen
-  Serial.print("Luftfeuchtigkeit(%): ");
-  Serial.print(h);                  // Ausgeben der Luftfeuchtigkeit
-  Serial.print(" Temp(C): ");
-  Serial.print(t);                  // Ausgeben der Temperatur
-  Serial.println();
+  if (!isnan(t)) {
+    Serial.print("humidity:");
+    Serial.print(h);
+    Serial.print("\n");
+  }
+
+  delay(1000);  
 }
