@@ -38,14 +38,14 @@
         "id": "261b1e52.fff7f2",
         "type": "debug",
         "z": "a0154760.97ad68",
-        "name": "ArduinoNano_Debug_Temp",
+        "name": "DHT22_Temp_Debug",
         "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
         "complete": "payload",
         "targetType": "msg",
-        "x": 1080,
+        "x": 1060,
         "y": 340,
         "wires": []
     },
@@ -138,14 +138,14 @@
         "id": "71308c9c.7e5444",
         "type": "debug",
         "z": "a0154760.97ad68",
-        "name": "ArduinoNano_Debug_Humidity",
+        "name": "DHT22_Humid_Debug",
         "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
         "complete": "payload",
         "targetType": "msg",
-        "x": 1090,
+        "x": 1060,
         "y": 500,
         "wires": []
     },
@@ -272,7 +272,8 @@
         "y": 80,
         "wires": [
             [
-                "775d2b4d.9c8674"
+                "775d2b4d.9c8674",
+                "4c52e723.ccb338"
             ]
         ]
     },
@@ -344,8 +345,8 @@
         "tostatus": false,
         "complete": "payload",
         "targetType": "msg",
-        "x": 1280,
-        "y": 160,
+        "x": 1700,
+        "y": 80,
         "wires": []
     },
     {
@@ -360,8 +361,107 @@
         "complete": "payload",
         "targetType": "msg",
         "x": 1080,
-        "y": 80,
+        "y": 160,
         "wires": []
+    },
+    {
+        "id": "c38f8b58.e7e2f8",
+        "type": "ui_dropdown",
+        "z": "a0154760.97ad68",
+        "name": "",
+        "label": "IOTA node",
+        "tooltip": "",
+        "place": "https://nodes.devnet.thetangle.org:443",
+        "group": "45ff4503.e6966c",
+        "order": 1,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "options": [
+            {
+                "label": "https://nodes.devnet.thetangle.org:443",
+                "value": "https://nodes.devnet.thetangle.org:443",
+                "type": "str"
+            },
+            {
+                "label": "https://trinity.iota.fm:443/",
+                "value": "https://trinity.iota.fm:443/",
+                "type": "str"
+            }
+        ],
+        "payload": "",
+        "topic": "",
+        "x": 230,
+        "y": 60,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "4c52e723.ccb338",
+        "type": "gate",
+        "z": "a0154760.97ad68",
+        "name": "",
+        "controlTopic": "control",
+        "defaultState": "open",
+        "openCmd": "open",
+        "closeCmd": "close",
+        "toggleCmd": "toggle",
+        "defaultCmd": "default",
+        "persist": false,
+        "x": 1270,
+        "y": 80,
+        "wires": [
+            [
+                "4bde66ef.7e1268"
+            ]
+        ]
+    },
+    {
+        "id": "11ddde9.5755421",
+        "type": "ui_switch",
+        "z": "a0154760.97ad68",
+        "name": "",
+        "label": "Publish data",
+        "tooltip": "",
+        "group": "45ff4503.e6966c",
+        "order": 4,
+        "width": 0,
+        "height": 0,
+        "passthru": true,
+        "decouple": "false",
+        "topic": "control",
+        "style": "",
+        "onvalue": "open",
+        "onvalueType": "str",
+        "onicon": "",
+        "oncolor": "",
+        "offvalue": "close",
+        "offvalueType": "str",
+        "officon": "",
+        "offcolor": "",
+        "x": 1090,
+        "y": 40,
+        "wires": [
+            [
+                "4c52e723.ccb338"
+            ]
+        ]
+    },
+    {
+        "id": "4bde66ef.7e1268",
+        "type": "mamPublish",
+        "z": "a0154760.97ad68",
+        "iotaNode": "https://nodes.devnet.thetangle.org:443",
+        "mode": "public",
+        "secretKey": null,
+        "x": 1430,
+        "y": 80,
+        "wires": [
+            [
+                "7eed948c.64e5dc"
+            ]
+        ]
     },
     {
         "id": "9525f378.f6bc6",
@@ -394,5 +494,26 @@
         "out": "char",
         "addchar": "",
         "responsetimeout": "10000"
+    },
+    {
+        "id": "45ff4503.e6966c",
+        "type": "ui_group",
+        "z": "",
+        "name": "General Setup",
+        "tab": "3d75fc11.5e9874",
+        "order": 1,
+        "disp": true,
+        "width": "8",
+        "collapse": false
+    },
+    {
+        "id": "3d75fc11.5e9874",
+        "type": "ui_tab",
+        "z": "",
+        "name": "Masked Authenticated Messaging",
+        "icon": "dashboard",
+        "order": 1,
+        "disabled": false,
+        "hidden": false
     }
 ]
