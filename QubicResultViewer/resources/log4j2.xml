@@ -3,7 +3,7 @@
 
    <Appenders>
       <Console name="Console" target="SYSTEM_OUT">
-         <PatternLayout pattern="%style{%d{DEFAULT}}{White} %highlight{%-5level} [%tid] %c{1} - %msg%n" />
+         <PatternLayout pattern="%style{%d{DEFAULT}}{White} %highlight{%-5level} [Thread-%tid] %c{1} - %msg%n" />
       </Console>
    </Appenders>
 
