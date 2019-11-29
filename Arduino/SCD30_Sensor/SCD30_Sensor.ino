@@ -29,6 +29,8 @@ void setup()
 
 void loop()
 {
+  delay(2000);
+  
   if (airSensor.dataAvailable())
   {
     Serial.print("temperature:");
@@ -39,6 +41,4 @@ void loop()
     Serial.print(airSensor.getHumidity(), 3);
     Serial.print("\n");
   }
-
-  delay(1000);
 }

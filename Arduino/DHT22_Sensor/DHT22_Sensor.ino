@@ -29,7 +29,9 @@ void setup() {
   dht.begin();
 }
 
-void loop() {                  
+void loop() {  
+  delay(2000);
+                  
   float t = dht.readTemperature();                 
   float h = dht.readHumidity();
   
@@ -44,6 +46,4 @@ void loop() {
     Serial.print(h);
     Serial.print("\n");
   }
-
-  delay(2000);  
 }
