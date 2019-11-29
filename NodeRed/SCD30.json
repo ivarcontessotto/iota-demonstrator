@@ -2,7 +2,7 @@
     {
         "id": "a0154760.97ad68",
         "type": "tab",
-        "label": "TemperatureAndHumidity",
+        "label": "SCD30",
         "disabled": false,
         "info": ""
     },
@@ -12,75 +12,11 @@
         "z": "a0154760.97ad68",
         "name": "SCD30_Serial",
         "serial": "9525f378.f6bc6",
-        "x": 120,
-        "y": 169,
+        "x": 110,
+        "y": 200,
         "wires": [
             [
                 "230076dc.4ea22a"
-            ]
-        ]
-    },
-    {
-        "id": "ca20d3ae.ba1fc",
-        "type": "serial in",
-        "z": "a0154760.97ad68",
-        "name": "DHT22_Serial",
-        "serial": "df9c7e98.76f53",
-        "x": 110,
-        "y": 417,
-        "wires": [
-            [
-                "77ee07c4.bd0e18"
-            ]
-        ]
-    },
-    {
-        "id": "261b1e52.fff7f2",
-        "type": "debug",
-        "z": "a0154760.97ad68",
-        "name": "DHT22_Temp_Debug",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "x": 1060,
-        "y": 340,
-        "wires": []
-    },
-    {
-        "id": "77ee07c4.bd0e18",
-        "type": "switch",
-        "z": "a0154760.97ad68",
-        "name": "DHT22_Switch",
-        "property": "payload",
-        "propertyType": "msg",
-        "rules": [
-            {
-                "t": "regex",
-                "v": "temperature:*",
-                "vt": "str",
-                "case": false
-            },
-            {
-                "t": "regex",
-                "v": "humidity:*",
-                "vt": "str",
-                "case": false
-            }
-        ],
-        "checkall": "false",
-        "repair": false,
-        "outputs": 2,
-        "x": 293,
-        "y": 417,
-        "wires": [
-            [
-                "f20d52fc.7259d"
-            ],
-            [
-                "20f0c848.5edb18"
             ]
         ]
     },
@@ -108,8 +44,8 @@
         "checkall": "false",
         "repair": false,
         "outputs": 2,
-        "x": 300,
-        "y": 169,
+        "x": 290,
+        "y": 200,
         "wires": [
             [
                 "4ff8aa1a.8571f4"
@@ -130,23 +66,8 @@
         "tostatus": false,
         "complete": "payload",
         "targetType": "msg",
-        "x": 1060,
-        "y": 260,
-        "wires": []
-    },
-    {
-        "id": "71308c9c.7e5444",
-        "type": "debug",
-        "z": "a0154760.97ad68",
-        "name": "DHT22_Humid_Debug",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "x": 1060,
-        "y": 500,
+        "x": 840,
+        "y": 200,
         "wires": []
     },
     {
@@ -159,7 +80,7 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "{\"SensorName\": \"SCD30\", \"SensorType\": \"Temperature\", \"Unit\": \"Degree Celsius\", \"Value\": $number($substringBefore($substringAfter(payload, \"temperature:\"),\"\\n\"))}",
+                "to": "{\"SensorType\": \"Temperature\", \"Location\": \"Rotkreuz\", \"SensorName\": \"SCD30\", \"Unit\": \"Degree Celsius\", \"Value\": $number($substringBefore($substringAfter(payload, \"temperature:\"),\"\\n\"))}",
                 "tot": "jsonata"
             }
         ],
@@ -168,38 +89,11 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 550,
-        "y": 80,
+        "x": 530,
+        "y": 140,
         "wires": [
             [
                 "26e4db62.db5654"
-            ]
-        ]
-    },
-    {
-        "id": "f20d52fc.7259d",
-        "type": "change",
-        "z": "a0154760.97ad68",
-        "name": "DHT22_Temp_Transform",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "{\"SensorName\": \"DHT22\", \"SensorType\": \"Temperature\", \"Unit\": \"Degree Celsius\", \"Value\": $number($substringBefore($substringAfter(payload, \"temperature:\"),\"\\n\"))}",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 550,
-        "y": 340,
-        "wires": [
-            [
-                "1037a937.ce3717"
             ]
         ]
     },
@@ -213,7 +107,7 @@
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "{\"SensorName\": \"SCD30\", \"SensorType\": \"Humidity\", \"Unit\": \"Percent\", \"Value\": $number($substringBefore($substringAfter(payload, \"humidity:\"),\"\\n\"))}",
+                "to": "{\"SensorType\": \"Humidity\", \"Location\": \"Rotkreuz\", \"SensorName\": \"SCD30\", \"Unit\": \"Percent\", \"Value\": $number($substringBefore($substringAfter(payload, \"humidity:\"),\"\\n\"))}",
                 "tot": "jsonata"
             }
         ],
@@ -222,8 +116,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 560,
-        "y": 260,
+        "x": 540,
+        "y": 271,
         "wires": [
             [
                 "d90829b6.5416e8"
@@ -231,45 +125,18 @@
         ]
     },
     {
-        "id": "20f0c848.5edb18",
-        "type": "change",
-        "z": "a0154760.97ad68",
-        "name": "DHT22_Humid_Transform",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "{\"SensorName\": \"DHT22\", \"SensorType\": \"Humidity\", \"Unit\": \"Percent\", \"Value\": $number($substringBefore($substringAfter(payload, \"humidity:\"),\"\\n\"))}",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 550,
-        "y": 500,
-        "wires": [
-            [
-                "4078ef13.4d9d2"
-            ]
-        ]
-    },
-    {
         "id": "26e4db62.db5654",
         "type": "smooth",
         "z": "a0154760.97ad68",
-        "name": "Mean_30_Values",
+        "name": "Mean_10_Values",
         "property": "payload.Value",
         "action": "mean",
-        "count": "30",
+        "count": "10",
         "round": "3",
         "mult": "single",
         "reduce": true,
-        "x": 810,
-        "y": 80,
+        "x": 790,
+        "y": 140,
         "wires": [
             [
                 "775d2b4d.9c8674",
@@ -281,15 +148,15 @@
         "id": "d90829b6.5416e8",
         "type": "smooth",
         "z": "a0154760.97ad68",
-        "name": "Mean_30_Values",
+        "name": "Mean_10_Values",
         "property": "payload.Value",
         "action": "mean",
-        "count": "30",
+        "count": "10",
         "round": "3",
         "mult": "single",
         "reduce": true,
-        "x": 810,
-        "y": 260,
+        "x": 806,
+        "y": 271,
         "wires": [
             [
                 "3e470c83.3d1fb4"
@@ -297,56 +164,18 @@
         ]
     },
     {
-        "id": "1037a937.ce3717",
-        "type": "smooth",
-        "z": "a0154760.97ad68",
-        "name": "Mean_30_Values",
-        "property": "payload.Value",
-        "action": "mean",
-        "count": "30",
-        "round": "2",
-        "mult": "single",
-        "reduce": true,
-        "x": 810,
-        "y": 340,
-        "wires": [
-            [
-                "261b1e52.fff7f2"
-            ]
-        ]
-    },
-    {
-        "id": "4078ef13.4d9d2",
-        "type": "smooth",
-        "z": "a0154760.97ad68",
-        "name": "Mean_30_Values",
-        "property": "payload.Value",
-        "action": "mean",
-        "count": "30",
-        "round": "2",
-        "mult": "single",
-        "reduce": true,
-        "x": 810,
-        "y": 500,
-        "wires": [
-            [
-                "71308c9c.7e5444"
-            ]
-        ]
-    },
-    {
         "id": "7eed948c.64e5dc",
         "type": "debug",
         "z": "a0154760.97ad68",
-        "name": "SCD30_Temp_LastPublishedRoot",
+        "name": "SCD30_LastMAMRoot",
         "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
         "complete": "payload",
         "targetType": "msg",
-        "x": 1700,
-        "y": 80,
+        "x": 1580,
+        "y": 200,
         "wires": []
     },
     {
@@ -360,8 +189,8 @@
         "tostatus": false,
         "complete": "payload",
         "targetType": "msg",
-        "x": 1080,
-        "y": 160,
+        "x": 820,
+        "y": 80,
         "wires": []
     },
     {
@@ -391,8 +220,8 @@
         ],
         "payload": "",
         "topic": "",
-        "x": 230,
-        "y": 60,
+        "x": 1230,
+        "y": 260,
         "wires": [
             []
         ]
@@ -409,8 +238,8 @@
         "toggleCmd": "toggle",
         "defaultCmd": "default",
         "persist": false,
-        "x": 1270,
-        "y": 80,
+        "x": 1210,
+        "y": 200,
         "wires": [
             [
                 "4bde66ef.7e1268"
@@ -441,7 +270,7 @@
         "officon": "",
         "offcolor": "",
         "x": 1090,
-        "y": 40,
+        "y": 60,
         "wires": [
             [
                 "4c52e723.ccb338"
@@ -455,8 +284,8 @@
         "iotaNode": "https://nodes.devnet.thetangle.org:443",
         "mode": "public",
         "secretKey": null,
-        "x": 1430,
-        "y": 80,
+        "x": 1370,
+        "y": 200,
         "wires": [
             [
                 "7eed948c.64e5dc"
@@ -468,22 +297,6 @@
         "type": "serial-port",
         "z": "",
         "serialport": "/dev/ttyACM0",
-        "serialbaud": "9600",
-        "databits": "8",
-        "parity": "none",
-        "stopbits": "1",
-        "waitfor": "",
-        "newline": "\\n",
-        "bin": "false",
-        "out": "char",
-        "addchar": "",
-        "responsetimeout": "10000"
-    },
-    {
-        "id": "df9c7e98.76f53",
-        "type": "serial-port",
-        "z": "",
-        "serialport": "/dev/ttyACM1",
         "serialbaud": "9600",
         "databits": "8",
         "parity": "none",
