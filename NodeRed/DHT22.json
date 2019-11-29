@@ -10,36 +10,21 @@
         "id": "33db5398.19474c",
         "type": "serial in",
         "z": "618298c4.a4f2a8",
-        "name": "DHT22_Serial",
+        "name": "Serial_In",
         "serial": "df9c7e98.76f53",
-        "x": 130,
+        "x": 120,
         "y": 200,
         "wires": [
             [
-                "4dd98397.3ab1fc"
+                "b9f6f47c.1db638"
             ]
         ]
     },
     {
-        "id": "b546d6a1.546f98",
-        "type": "debug",
-        "z": "618298c4.a4f2a8",
-        "name": "DHT22_Temp_Debug",
-        "active": true,
-        "tosidebar": true,
-        "console": false,
-        "tostatus": false,
-        "complete": "payload",
-        "targetType": "msg",
-        "x": 860,
-        "y": 80,
-        "wires": []
-    },
-    {
-        "id": "4dd98397.3ab1fc",
+        "id": "b9f6f47c.1db638",
         "type": "switch",
         "z": "618298c4.a4f2a8",
-        "name": "DHT22_Switch",
+        "name": "Tem_Humid_Switch",
         "property": "payload",
         "propertyType": "msg",
         "rules": [
@@ -59,19 +44,19 @@
         "checkall": "false",
         "repair": false,
         "outputs": 2,
-        "x": 313,
+        "x": 340,
         "y": 200,
         "wires": [
             [
-                "493d72c3.42331c"
+                "87b20974.df69f8"
             ],
             [
-                "4b52f2d0.5243dc"
+                "e4d141c.02956c"
             ]
         ]
     },
     {
-        "id": "65a15d3b.174744",
+        "id": "84776dea.ea5b",
         "type": "debug",
         "z": "618298c4.a4f2a8",
         "name": "DHT22_Humid_Debug",
@@ -81,99 +66,146 @@
         "tostatus": false,
         "complete": "payload",
         "targetType": "msg",
-        "x": 860,
+        "x": 1040,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "87b20974.df69f8",
+        "type": "change",
+        "z": "618298c4.a4f2a8",
+        "name": "Temp_Transform",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"Sensor\": \"DHT22\" , \"Measurement\": \"Temperature\", \"Value\": $number($substringBefore($substringAfter(payload, \"temperature:\"),\"\\n\")), \"Unit\": \"Degree Celsius\"}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 610,
+        "y": 140,
+        "wires": [
+            [
+                "c9c7a080.a82a8"
+            ]
+        ]
+    },
+    {
+        "id": "e4d141c.02956c",
+        "type": "change",
+        "z": "618298c4.a4f2a8",
+        "name": "Humid_Transform",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"Sensor\": \"DHT22\" , \"Measurement\": \"Humidity\", \"Value\": $number($substringBefore($substringAfter(payload, \"humidity:\"),\"\\n\")), \"Unit\": \"Percent\"}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 610,
+        "y": 240,
+        "wires": [
+            [
+                "dc66f037.fbe7c"
+            ]
+        ]
+    },
+    {
+        "id": "c9c7a080.a82a8",
+        "type": "smooth",
+        "z": "618298c4.a4f2a8",
+        "name": "Mean_30",
+        "property": "payload.Value",
+        "action": "mean",
+        "count": "30",
+        "round": "2",
+        "mult": "single",
+        "reduce": true,
+        "x": 820,
+        "y": 140,
+        "wires": [
+            [
+                "33384fed.966e8",
+                "e6bc533e.06da2"
+            ]
+        ]
+    },
+    {
+        "id": "dc66f037.fbe7c",
+        "type": "smooth",
+        "z": "618298c4.a4f2a8",
+        "name": "Mean_30",
+        "property": "payload.Value",
+        "action": "mean",
+        "count": "30",
+        "round": "2",
+        "mult": "single",
+        "reduce": true,
+        "x": 820,
+        "y": 240,
+        "wires": [
+            [
+                "84776dea.ea5b",
+                "e6bc533e.06da2"
+            ]
+        ]
+    },
+    {
+        "id": "193a0e1a.1d6e82",
+        "type": "debug",
+        "z": "618298c4.a4f2a8",
+        "name": "DHT22_PublishedMamRoot",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 1260,
         "y": 200,
         "wires": []
     },
     {
-        "id": "493d72c3.42331c",
-        "type": "change",
+        "id": "33384fed.966e8",
+        "type": "debug",
         "z": "618298c4.a4f2a8",
-        "name": "DHT22_Temp_Transform",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "{\"SensorType\": \"Temperature\", \"Location\": \"Rotkreuz\", \"SensorName\": \"DHT22\", \"Unit\": \"Degree Celsius\", \"Value\": $number($substringBefore($substringAfter(payload, \"temperature:\"),\"\\n\"))}",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 570,
-        "y": 134,
-        "wires": [
-            [
-                "2aeb2651.de63ca"
-            ]
-        ]
+        "name": "DHT22_Temp_Debug",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "x": 1040,
+        "y": 60,
+        "wires": []
     },
     {
-        "id": "4b52f2d0.5243dc",
-        "type": "change",
+        "id": "e6bc533e.06da2",
+        "type": "mamPublish",
         "z": "618298c4.a4f2a8",
-        "name": "DHT22_Humid_Transform",
-        "rules": [
-            {
-                "t": "set",
-                "p": "payload",
-                "pt": "msg",
-                "to": "{\"SensorType\": \"Humidity\", \"Location\": \"Rotkreuz\", \"SensorName\": \"DHT22\", \"Unit\": \"Percent\", \"Value\": $number($substringBefore($substringAfter(payload, \"humidity:\"),\"\\n\"))}",
-                "tot": "jsonata"
-            }
-        ],
-        "action": "",
-        "property": "",
-        "from": "",
-        "to": "",
-        "reg": false,
-        "x": 570,
-        "y": 260,
+        "iotaNode": "https://nodes.devnet.thetangle.org:443",
+        "mode": "public",
+        "secretKey": null,
+        "x": 1030,
+        "y": 200,
         "wires": [
             [
-                "3258fea8.8fdcd2"
-            ]
-        ]
-    },
-    {
-        "id": "2aeb2651.de63ca",
-        "type": "smooth",
-        "z": "618298c4.a4f2a8",
-        "name": "Mean_10_Values",
-        "property": "payload.Value",
-        "action": "mean",
-        "count": "10",
-        "round": "2",
-        "mult": "single",
-        "reduce": true,
-        "x": 830,
-        "y": 134,
-        "wires": [
-            [
-                "b546d6a1.546f98"
-            ]
-        ]
-    },
-    {
-        "id": "3258fea8.8fdcd2",
-        "type": "smooth",
-        "z": "618298c4.a4f2a8",
-        "name": "Mean_10_Values",
-        "property": "payload.Value",
-        "action": "mean",
-        "count": "10",
-        "round": "2",
-        "mult": "single",
-        "reduce": true,
-        "x": 830,
-        "y": 260,
-        "wires": [
-            [
-                "65a15d3b.174744"
+                "193a0e1a.1d6e82"
             ]
         ]
     },

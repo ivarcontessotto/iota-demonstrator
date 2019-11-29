@@ -10,9 +10,9 @@
         "id": "34b00d8.d3aacf2",
         "type": "serial in",
         "z": "a0154760.97ad68",
-        "name": "SCD30_Serial",
+        "name": "Serial_In",
         "serial": "9525f378.f6bc6",
-        "x": 110,
+        "x": 100,
         "y": 200,
         "wires": [
             [
@@ -24,7 +24,7 @@
         "id": "230076dc.4ea22a",
         "type": "switch",
         "z": "a0154760.97ad68",
-        "name": "SCD30_Switch",
+        "name": "Tem_Humid_Switch",
         "property": "payload",
         "propertyType": "msg",
         "rules": [
@@ -44,7 +44,7 @@
         "checkall": "false",
         "repair": false,
         "outputs": 2,
-        "x": 290,
+        "x": 320,
         "y": 200,
         "wires": [
             [
@@ -66,21 +66,21 @@
         "tostatus": false,
         "complete": "payload",
         "targetType": "msg",
-        "x": 840,
-        "y": 200,
+        "x": 1000,
+        "y": 300,
         "wires": []
     },
     {
         "id": "4ff8aa1a.8571f4",
         "type": "change",
         "z": "a0154760.97ad68",
-        "name": "SCD30_Temp_Transform",
+        "name": "Temp_Transform",
         "rules": [
             {
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "{\"SensorType\": \"Temperature\", \"Location\": \"Rotkreuz\", \"SensorName\": \"SCD30\", \"Unit\": \"Degree Celsius\", \"Value\": $number($substringBefore($substringAfter(payload, \"temperature:\"),\"\\n\"))}",
+                "to": "{\"Sensor\": \"SCD30\" , \"Measurement\": \"Temperature\", \"Value\": $number($substringBefore($substringAfter(payload, \"temperature:\"),\"\\n\")), \"Unit\": \"Degree Celsius\"}",
                 "tot": "jsonata"
             }
         ],
@@ -89,7 +89,7 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 530,
+        "x": 570,
         "y": 140,
         "wires": [
             [
@@ -101,13 +101,13 @@
         "id": "8281be3a.f25cb",
         "type": "change",
         "z": "a0154760.97ad68",
-        "name": "SCD30_Humid_Transform",
+        "name": "Humid_Transform",
         "rules": [
             {
                 "t": "set",
                 "p": "payload",
                 "pt": "msg",
-                "to": "{\"SensorType\": \"Humidity\", \"Location\": \"Rotkreuz\", \"SensorName\": \"SCD30\", \"Unit\": \"Percent\", \"Value\": $number($substringBefore($substringAfter(payload, \"humidity:\"),\"\\n\"))}",
+                "to": "{\"Sensor\": \"SCD30\" , \"Measurement\": \"Humidity\", \"Value\": $number($substringBefore($substringAfter(payload, \"humidity:\"),\"\\n\")), \"Unit\": \"Percent\"}",
                 "tot": "jsonata"
             }
         ],
@@ -116,8 +116,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 540,
-        "y": 271,
+        "x": 570,
+        "y": 240,
         "wires": [
             [
                 "d90829b6.5416e8"
@@ -128,19 +128,19 @@
         "id": "26e4db62.db5654",
         "type": "smooth",
         "z": "a0154760.97ad68",
-        "name": "Mean_10_Values",
+        "name": "Mean_30",
         "property": "payload.Value",
         "action": "mean",
-        "count": "10",
+        "count": "30",
         "round": "3",
         "mult": "single",
         "reduce": true,
-        "x": 790,
+        "x": 780,
         "y": 140,
         "wires": [
             [
                 "775d2b4d.9c8674",
-                "4c52e723.ccb338"
+                "31cb18e9.e57168"
             ]
         ]
     },
@@ -148,18 +148,19 @@
         "id": "d90829b6.5416e8",
         "type": "smooth",
         "z": "a0154760.97ad68",
-        "name": "Mean_10_Values",
+        "name": "Mean_30",
         "property": "payload.Value",
         "action": "mean",
-        "count": "10",
+        "count": "30",
         "round": "3",
         "mult": "single",
         "reduce": true,
-        "x": 806,
-        "y": 271,
+        "x": 780,
+        "y": 240,
         "wires": [
             [
-                "3e470c83.3d1fb4"
+                "3e470c83.3d1fb4",
+                "31cb18e9.e57168"
             ]
         ]
     },
@@ -167,14 +168,14 @@
         "id": "7eed948c.64e5dc",
         "type": "debug",
         "z": "a0154760.97ad68",
-        "name": "SCD30_LastMAMRoot",
+        "name": "SCD30_PublishedMamRoot",
         "active": true,
         "tosidebar": true,
         "console": false,
         "tostatus": false,
         "complete": "payload",
         "targetType": "msg",
-        "x": 1580,
+        "x": 1200,
         "y": 200,
         "wires": []
     },
@@ -189,102 +190,18 @@
         "tostatus": false,
         "complete": "payload",
         "targetType": "msg",
-        "x": 820,
+        "x": 1000,
         "y": 80,
         "wires": []
     },
     {
-        "id": "c38f8b58.e7e2f8",
-        "type": "ui_dropdown",
-        "z": "a0154760.97ad68",
-        "name": "",
-        "label": "IOTA node",
-        "tooltip": "",
-        "place": "https://nodes.devnet.thetangle.org:443",
-        "group": "45ff4503.e6966c",
-        "order": 1,
-        "width": 0,
-        "height": 0,
-        "passthru": true,
-        "options": [
-            {
-                "label": "https://nodes.devnet.thetangle.org:443",
-                "value": "https://nodes.devnet.thetangle.org:443",
-                "type": "str"
-            },
-            {
-                "label": "https://trinity.iota.fm:443/",
-                "value": "https://trinity.iota.fm:443/",
-                "type": "str"
-            }
-        ],
-        "payload": "",
-        "topic": "",
-        "x": 1230,
-        "y": 260,
-        "wires": [
-            []
-        ]
-    },
-    {
-        "id": "4c52e723.ccb338",
-        "type": "gate",
-        "z": "a0154760.97ad68",
-        "name": "",
-        "controlTopic": "control",
-        "defaultState": "open",
-        "openCmd": "open",
-        "closeCmd": "close",
-        "toggleCmd": "toggle",
-        "defaultCmd": "default",
-        "persist": false,
-        "x": 1210,
-        "y": 200,
-        "wires": [
-            [
-                "4bde66ef.7e1268"
-            ]
-        ]
-    },
-    {
-        "id": "11ddde9.5755421",
-        "type": "ui_switch",
-        "z": "a0154760.97ad68",
-        "name": "",
-        "label": "Publish data",
-        "tooltip": "",
-        "group": "45ff4503.e6966c",
-        "order": 4,
-        "width": 0,
-        "height": 0,
-        "passthru": true,
-        "decouple": "false",
-        "topic": "control",
-        "style": "",
-        "onvalue": "open",
-        "onvalueType": "str",
-        "onicon": "",
-        "oncolor": "",
-        "offvalue": "close",
-        "offvalueType": "str",
-        "officon": "",
-        "offcolor": "",
-        "x": 1090,
-        "y": 60,
-        "wires": [
-            [
-                "4c52e723.ccb338"
-            ]
-        ]
-    },
-    {
-        "id": "4bde66ef.7e1268",
+        "id": "31cb18e9.e57168",
         "type": "mamPublish",
         "z": "a0154760.97ad68",
         "iotaNode": "https://nodes.devnet.thetangle.org:443",
         "mode": "public",
         "secretKey": null,
-        "x": 1370,
+        "x": 970,
         "y": 200,
         "wires": [
             [
@@ -307,26 +224,5 @@
         "out": "char",
         "addchar": "",
         "responsetimeout": "10000"
-    },
-    {
-        "id": "45ff4503.e6966c",
-        "type": "ui_group",
-        "z": "",
-        "name": "General Setup",
-        "tab": "3d75fc11.5e9874",
-        "order": 1,
-        "disp": true,
-        "width": "8",
-        "collapse": false
-    },
-    {
-        "id": "3d75fc11.5e9874",
-        "type": "ui_tab",
-        "z": "",
-        "name": "Masked Authenticated Messaging",
-        "icon": "dashboard",
-        "order": 1,
-        "disabled": false,
-        "hidden": false
     }
 ]
