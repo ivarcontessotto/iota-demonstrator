@@ -140,7 +140,7 @@
         "wires": [
             [
                 "775d2b4d.9c8674",
-                "31cb18e9.e57168"
+                "1e7003dd.bcc1ec"
             ]
         ]
     },
@@ -160,7 +160,7 @@
         "wires": [
             [
                 "3e470c83.3d1fb4",
-                "31cb18e9.e57168"
+                "1e7003dd.bcc1ec"
             ]
         ]
     },
@@ -195,12 +195,12 @@
         "wires": []
     },
     {
-        "id": "31cb18e9.e57168",
+        "id": "1e7003dd.bcc1ec",
         "type": "mamPublish",
         "z": "a0154760.97ad68",
         "iotaNode": "https://nodes.devnet.thetangle.org:443",
-        "mode": "public",
-        "secretKey": null,
+        "mode": "restricted",
+        "secretKey": "RAREYODAPEPE",
         "x": 970,
         "y": 200,
         "wires": [
