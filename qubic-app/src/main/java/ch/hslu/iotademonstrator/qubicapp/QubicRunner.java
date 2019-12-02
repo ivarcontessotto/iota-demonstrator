@@ -22,11 +22,11 @@ public class QubicRunner {
         String rootAddressForTest = TangleAPI.getInstance().getNextUnspentAddressFromSeed(TryteTool.TEST_SEED);
         LOGGER.info(rootAddressForTest);
 
-        int secondsToExecutionStart = 60;
-        int secondsUntilAssemble = 40;
-        int secondsResultPeriod = 15;
-        int secondsHashPeriod = 15;
-        int secondsRuntimeLimit = 5;
+        int secondsToExecutionStart = 180;
+        int secondsUntilAssemble = 120;
+        int secondsResultPeriod = 30;
+        int secondsHashPeriod = 30;
+        int secondsRuntimeLimit = 10;
 
         LOGGER.info("Create Qubic");
         QubicWriter qubicWriter = new QubicWriter(rootAddressForTest);

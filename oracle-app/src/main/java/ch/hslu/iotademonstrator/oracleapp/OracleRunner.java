@@ -40,7 +40,7 @@ public class OracleRunner {
             return;
         }
 
-        Queue<String> inputSequence = new LinkedList<>(Arrays.asList("50", "40", "30"));
+        Queue<String> inputSequence = new LinkedList<>(Arrays.asList("50", "40", "4", "2", "20"));
         QueueInputProviderConfig inputConfig = new QueueInputProviderConfig(ValueType.INTEGER, inputSequence);
         LOGGER.info("Create Input Provider");
         OracleInputProvider inputProvider = new QueueInputProvider(inputConfig);

@@ -45,7 +45,7 @@
                     <archive>
                         <manifest>
                             <addClasspath>true</addClasspath>
-                            <mainClass>ch.hslu.demo.DemoApp</mainClass>
+                            <mainClass>ch.hslu.iotademonstrator.oracleapp.Application</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
