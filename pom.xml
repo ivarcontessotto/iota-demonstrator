@@ -8,9 +8,9 @@
     <artifactId>iota-demonstrator</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <modules>
-        <module>OracleApplication</module>
-        <module>QubicApplication</module>
-        <module>QubicResultViewer</module>
+        <module>oracle-app</module>
+        <module>qubic-app</module>
+        <module>qubic-viewer</module>
     </modules>
     <packaging>pom</packaging>
     <name>IOTA Demonstrator</name>
@@ -82,34 +82,6 @@
     </properties>
 
     <build>
-        <plugins>
-            <plugin>
-                <artifactId>maven-assembly-plugin</artifactId>
-                <version>2.5.3</version>
-                <configuration>
-                    <archive>
-                        <manifest>
-                            <addClasspath>true</addClasspath>
-                            <mainClass>ch.hslu.demo.DemoApp</mainClass>
-                        </manifest>
-                    </archive>
-                    <descriptorRefs>
-                        <descriptorRef>jar-with-dependencies</descriptorRef>
-                    </descriptorRefs>
-                    <skipAssembly>${skip.assembly}</skipAssembly>
-                </configuration>
-                <executions>
-                    <execution>
-                        <id>make-assembly</id> <!-- this is used for inheritance merges -->
-                        <phase>package</phase> <!--  bind to the packaging phase -->
-                        <goals>
-                            <goal>single</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-
         <resources>
             <resource>
                 <directory>res</directory>
