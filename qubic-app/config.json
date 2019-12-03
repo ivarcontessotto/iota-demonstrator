@@ -1,0 +1,11 @@
+{
+  "AppAddressSeed": "SHYPXXS9WFWCPGXLSFWUGFSTZNJFOBKHCOOPWPUODUZ9MTUKSRQHETK99QGJYVURWDRDSNHCGGTOBZMRU",
+  "PromotionTag": "IOTAISLIFE3",
+  "QubicSpecification": {
+    "SecondsUntilExecution": 180,
+    "SecondsUntilAssemble": 120,
+    "SecondsHashPeriod": 30,
+    "SecondsResultPeriod": 30,
+    "SecondsRuntimeLimit": 10
+  }
+}

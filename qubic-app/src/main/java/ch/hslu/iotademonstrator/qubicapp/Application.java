@@ -8,8 +8,9 @@ public final class Application {
     private static final Logger LOGGER = LogManager.getLogger(Application.class);
 
     public static void main(final String[] args) {
-        LOGGER.info("Start qubic application");
+        LOGGER.info("Initialize qubic application");
         QubicRunner runner = new QubicRunner();
+        LOGGER.info("Run qubic application");
         runner.start();
     }
 }

@@ -29,7 +29,7 @@ public class OracleInputProviderTest {
     @Test
     public void testGetOracleInputFromLogfile() throws InterruptedException {
 
-        Path inputLogfilePath = Paths.get("src/test/res/SomeLogfile.log");
+        Path inputLogfilePath = Paths.get("target/Sensor.log");
         LOGGER.info("Create Input Logfile: " + inputLogfilePath.toAbsolutePath().toString());
         createLogfile(
                 inputLogfilePath,
