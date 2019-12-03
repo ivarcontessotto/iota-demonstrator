@@ -22,8 +22,8 @@ public class QubicRunner {
         String rootAddressForTest = TangleAPI.getInstance().getNextUnspentAddressFromSeed(TryteTool.TEST_SEED);
         LOGGER.info(rootAddressForTest);
 
-        int secondsToExecutionStart = 180;
-        int secondsUntilAssemble = 120;
+        int secondsToExecutionStart = 120;
+        int secondsUntilAssemble = 90;
         int secondsResultPeriod = 30;
         int secondsHashPeriod = 30;
         int secondsRuntimeLimit = 10;
