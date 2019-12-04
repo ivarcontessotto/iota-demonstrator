@@ -1,12 +1,13 @@
 package ch.hslu.iotademonstrator.oracleapp.inputprovider;
 
+import ch.hslu.iotademonstrator.oracleapp.inputprovider.config.*;
 import com.jayway.jsonpath.JsonPath;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.Ignore;
 import org.junit.Test;
-import org.qubiclite.qlite.oracle.input.*;
-import ch.hslu.iotademonstrator.oracleapp.inputprovider.config.*;
+import org.qubiclite.qlite.oracle.input.OracleInputProvider;
+import org.qubiclite.qlite.oracle.input.ValueType;
 
 import java.io.File;
 import java.io.IOException;

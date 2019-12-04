@@ -9,6 +9,9 @@ public class ConfigLoaderTest {
 
     @Test
     public void testLoadQubicConfiguration() {
+        // Arrange
+        ConfigLoader.setConfigFilePath(Paths.get("src/test/res/config.json"));
+        ConfigLoader.setCodeFilePath(Paths.get("src/test/res/qubic.ql"));
         // Act
         QubicConfig config = ConfigLoader.load();
         // Assert
@@ -19,6 +22,6 @@ public class ConfigLoaderTest {
         Assert.assertEquals(30, config.getSecondsHashPeriod());
         Assert.assertEquals(30, config.getSecondsResultPeriod());
         Assert.assertEquals(10, config.getSecondsRuntimeLimit());
-        Assert.assertEquals("kmh=GetArgs(0);if(kmh<=10){traffic='stau';}else{traffic='normal';}return(traffic);", config.getCode());
+        Assert.assertEquals("kmh=GetInput(0);if(kmh<=10){traffic='stau';}else{traffic='normal';}return(traffic);", config.getCode());
     }
 }

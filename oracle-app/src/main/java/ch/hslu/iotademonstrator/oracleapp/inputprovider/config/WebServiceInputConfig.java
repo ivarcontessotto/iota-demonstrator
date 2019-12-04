@@ -4,6 +4,7 @@ import com.jayway.jsonpath.JsonPath;
 import org.qubiclite.qlite.oracle.input.*;
 
 import java.net.URL;
+import java.util.LinkedList;
 import java.util.Queue;
 
 public class WebServiceInputConfig extends OracleInputConfig {
@@ -50,6 +51,6 @@ public class WebServiceInputConfig extends OracleInputConfig {
      * @return the JSONPath queries to execute.
      */
     public Queue<JsonPath> getValueQueries() {
-        return this.valueQueries;
+        return new LinkedList<>(this.valueQueries);
     }
 }

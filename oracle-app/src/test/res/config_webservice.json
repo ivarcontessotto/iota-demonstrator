@@ -1,0 +1,11 @@
+{
+  "AppAddressSeed": "SHYPXXS9WFWCPGXLSFWUGFSTZNJFOBKHCOOPWPUODUZ9MTUKSRQHETK99QGJYVURWDRDSNHCGGTOBZMRU",
+  "PromotionTag": "IOTAISLIFE3",
+  "InputConfig": {
+    "Method": "WEBSERVICE",
+    "ValueType": "DOUBLE",
+    "ServiceUrl": "https://data.geo.admin.ch/ch.meteoschweiz.messwerte-lufttemperatur-10min/ch.meteoschweiz.messwerte-lufttemperatur-10min_de.json",
+    "PollingInterval": 10,
+    "ValueQueries": ["$.features[?(@.id=='CHZ')].properties.value", "$[0]"]
+  }
+}

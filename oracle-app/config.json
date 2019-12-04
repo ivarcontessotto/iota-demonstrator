@@ -1,0 +1,9 @@
+{
+  "AppAddressSeed": "SHYPXXS9WFWCPGXLSFWUGFSTZNJFOBKHCOOPWPUODUZ9MTUKSRQHETK99QGJYVURWDRDSNHCGGTOBZMRU",
+  "PromotionTag": "IOTAISLIFE3",
+  "InputConfig": {
+    "Method": "QUEUE",
+    "ValueType": "INTEGER",
+    "InputSequence": ["50", "40", "4", "2", "20"]
+  }
+}

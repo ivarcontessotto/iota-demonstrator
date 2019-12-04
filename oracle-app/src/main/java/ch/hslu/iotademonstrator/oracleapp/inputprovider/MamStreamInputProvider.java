@@ -96,7 +96,7 @@ public class MamStreamInputProvider implements OracleInputProvider, Runnable {
     }
 
     private void findInputInMessage(String message) {
-        String found = JSONPathHelper.find(message, new LinkedList<>(this.config.getValueQueries()));
+        String found = JSONPathHelper.find(message, this.config.getValueQueries());
         if (found != null) {
             this.latestInput = found;
             logger.info("New latest input: " + this.latestInput);

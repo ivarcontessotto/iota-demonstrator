@@ -1,5 +1,7 @@
 package ch.hslu.iotademonstrator.oracleapp;
 
+import ch.hslu.iotademonstrator.oracleapp.config.ConfigLoader;
+import ch.hslu.iotademonstrator.oracleapp.config.OracleConfig;
 import org.qubiclite.qlite.oracle.OracleManager;
 import org.qubiclite.qlite.oracle.OracleWriter;
 import org.apache.logging.log4j.LogManager;
@@ -17,38 +19,40 @@ import java.util.Queue;
 
 public class OracleRunner {
 
-    private final static Logger LOGGER = LogManager.getLogger(Application.class);
-    private final static String KEYWORD = "IOTAISLIFE3";
+    private final Logger logger = LogManager.getLogger(OracleRunner.class);
+    private final OracleConfig config;
+
+    public OracleRunner() {
+        this.config = ConfigLoader.load();
+    }
 
     public void start(){
 
-        LOGGER.info("Generat Root Address for Test");
-        String rootAddressForTest = TangleAPI.getInstance().getNextUnspentAddressFromSeed(TryteTool.TEST_SEED);
-        LOGGER.info(rootAddressForTest);
+        logger.info("Generat Root Address for Test");
+        String rootAddressForTest = TangleAPI.getInstance().getNextUnspentAddressFromSeed(this.config.getAppAddressSeed());
+        logger.info(rootAddressForTest);
 
-        List<String> promotedQubics = QubicPromotion.GetQubicAddressesByKeyword(KEYWORD);
+        List<String> promotedQubics = QubicPromotion.GetQubicAddressesByKeyword(this.config.getPromotionTag());
 
         QubicReader qubicReader;
         if (promotedQubics.size() > 0) {
             String firstPromotedQubicId = promotedQubics.get(0);
-            LOGGER.info("First Promoted Qubic found: " + firstPromotedQubicId );
+            logger.info("First Promoted Qubic found: " + firstPromotedQubicId );
             qubicReader = new QubicReader(firstPromotedQubicId);
         }
         else {
-            LOGGER.info("No promoted Qubics found ");
+            logger.info("No promoted Qubics found ");
             return;
         }
 
-        Queue<String> inputSequence = new LinkedList<>(Arrays.asList("50", "40", "4", "2", "20"));
-        QueueInputProviderConfig inputConfig = new QueueInputProviderConfig(ValueType.INTEGER, inputSequence);
-        LOGGER.info("Create Input Provider");
-        OracleInputProvider inputProvider = new QueueInputProvider(inputConfig);
+        logger.info("Create Oracle Input Provider");
+        OracleInputProvider inputProvider = InputProviderFactory.getInputProvider(this.config);
 
-        LOGGER.info("Create Oracle");
+        logger.info("Create Oracle");
         OracleWriter oracleWriter = new OracleWriter(rootAddressForTest, qubicReader, inputProvider);
-        LOGGER.info("Oracle ID (IAM Identity): " + oracleWriter.getID());
+        logger.info("Oracle ID (IAM Identity): " + oracleWriter.getID());
         OracleManager oracleManager = new OracleManager(oracleWriter, "OracleManager");
-        LOGGER.info("Start Oracle Lifecycle");
+        logger.info("Start Oracle Lifecycle");
         oracleManager.start();
     }
 }

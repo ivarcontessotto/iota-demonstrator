@@ -85,7 +85,7 @@ public class WebServiceInputProvider implements OracleInputProvider, Runnable {
     }
 
     private void findInputInResponse(String response) {
-        String found = JSONPathHelper.find(response, new LinkedList<>(config.getValueQueries()));
+        String found = JSONPathHelper.find(response, config.getValueQueries());
         if (found != null) {
             this.latestInput = found;
             logger.info("New latest input: " + this.latestInput);

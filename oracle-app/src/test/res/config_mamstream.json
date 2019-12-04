@@ -1,0 +1,15 @@
+{
+  "AppAddressSeed": "SHYPXXS9WFWCPGXLSFWUGFSTZNJFOBKHCOOPWPUODUZ9MTUKSRQHETK99QGJYVURWDRDSNHCGGTOBZMRU",
+  "PromotionTag": "IOTAISLIFE3",
+  "InputConfig": {
+    "Method": "MAMSTREAM",
+    "ValueType": "STRING",
+    "ServicePort": 3050,
+    "PollingInterval": 60,
+    "NodeProviderUrl": "https://nodes.devnet.thetangle.org:443",
+    "Mode": "RESTRICTED",
+    "RootAddress": "KMTJV9ZFBAURYLFLMUHJNTNO9EBYERXJUNNSMDWMBIUFUETDCSCQZLKBJWKTFNJLSNXJUCKCLUKHWKFYJ",
+    "EncryptionKey": "RAREYODAPEPE",
+    "ValueQueries": ["$[?(@.data.Measurement=='Temperature')].data.Value", "$[-1]"]
+  }
+}

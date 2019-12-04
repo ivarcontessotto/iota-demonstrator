@@ -26,6 +26,14 @@ public class ConfigLoader {
     private static Path configFilePath = Paths.get("config.json");
     private static Path codeFilePath = Paths.get("qubic.ql");
 
+    protected static void setConfigFilePath(Path path) {
+        configFilePath = path;
+    }
+
+    protected static void setCodeFilePath(Path path) {
+        codeFilePath = path;
+    }
+
     public static QubicConfig load() {
         try {
             String configFileContent = new String(Files.readAllBytes(configFilePath), StandardCharsets.UTF_8);

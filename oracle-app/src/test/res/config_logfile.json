@@ -1,0 +1,10 @@
+{
+  "AppAddressSeed": "SHYPXXS9WFWCPGXLSFWUGFSTZNJFOBKHCOOPWPUODUZ9MTUKSRQHETK99QGJYVURWDRDSNHCGGTOBZMRU",
+  "PromotionTag": "IOTAISLIFE3",
+  "InputConfig": {
+    "Method": "LOGFILE",
+    "ValueType": "INTEGER",
+    "LogfilePath": "C:/somefolder/target/Sensor.log",
+    "ValueRegex": "Speed \\[km/h]: ([0-9]*),"
+  }
+}
