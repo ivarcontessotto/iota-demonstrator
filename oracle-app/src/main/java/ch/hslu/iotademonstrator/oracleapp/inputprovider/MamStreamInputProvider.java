@@ -48,6 +48,7 @@ public class MamStreamInputProvider implements OracleInputProvider, Runnable {
      */
     @Override
     public String getInput() {
+        this.logger.info("getInput: " + this.latestInput);
         return this.latestInput;
     }
 

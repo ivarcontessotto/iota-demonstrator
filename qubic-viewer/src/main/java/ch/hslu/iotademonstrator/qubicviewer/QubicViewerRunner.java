@@ -49,11 +49,13 @@ public class QubicViewerRunner {
             logger.info("Oracle Part of Assembly: " + oracleId);
         }
 
-        for (int epoch = 0; epoch < 10; epoch++) {
+        for (int epoch = 0; epoch < 100; epoch++) {
             logger.info("Waiting for Epoch " + epoch + " to complete");
-            while (qubicReader.lastCompletedEpoch() < epoch) {
+            int lastCompletedEpoch = qubicReader.lastCompletedEpoch();
+            while (lastCompletedEpoch < epoch) {
                 try {
                     Thread.sleep(1000);
+                    lastCompletedEpoch = qubicReader.lastCompletedEpoch();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
