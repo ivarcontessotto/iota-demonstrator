@@ -2,24 +2,42 @@ const net = require('net');
 const Mam = require('@iota/mam');
 const Converter = require('@iota/converter');
 
-if (!process.argv[2]) return console.log('Missing Argument: A listening port for the service is requried!');
+if (!process.argv[2]) {
+    console.log('Missing Argument: A listening port for the service is requried!');
+    return;
+}
 const listeningPort = process.argv[2];
 
-if (!process.argv[3]) return console.log('Missing Argument: A polling interval in seconds for fetching from the MAM Stream is requried!');
+if (!process.argv[3]) {
+    console.log('Missing Argument: A polling interval in seconds for fetching from the MAM Stream is requried!');
+    return;
+}
 const pollingIntervalMilliseconds = process.argv[3] * 1000;
 
-if (!process.argv[4]) return console.log('Missing Argument: An URL for a public iota node provider is required to start the service!');
+if (!process.argv[4]) {
+    console.log('Missing Argument: An URL for a public iota node provider is required to start the service!');
+    return;
+}
 const provider = process.argv[4];
 
-if (!process.argv[5]) return console.log('Missing Argument: The mode is required! (public, private, restricted)');
+if (!process.argv[5]) {
+    console.log('Missing Argument: The mode is required! (public, private, restricted)');
+    return;
+}
 let mode =  process.argv[5];
 
-if (!process.argv[6]) return console.log('Missing Argument: The root address of the MAM stream to listen to is required!');
+if (!process.argv[6]) {
+    console.log('Missing Argument: The root address of the MAM stream to listen to is required!');
+    return;
+}
 let nextRoot =  process.argv[6];
 
 let encryptionKey = null;
 if (mode == 'restricted') {
-    if (!process.argv[7]) return console.log('Missing Argument: For restricted mode an encryption key is required!');
+    if (!process.argv[7]) {
+        console.log('Missing Argument: For restricted mode an encryption key is required!');
+        return;
+    }
     encryptionKey = process.argv[7];
 }
 
@@ -49,29 +67,32 @@ function publishLastPublishedMessageAgain(client) {
 }
 
 function fetchNewMessageAndPublish(root, client) {
-	console.log(`Fetch latest message from root ${root}`);
-	const response = Mam.fetch(root, mode, encryptionKey);
-	
-	response.then(resolve => {
-		console.log('Resolve response');
-		
-		console.log(`nextRoot: ${resolve.nextRoot}`);	
-		nextRoot = resolve.nextRoot;
-		
-		if (resolve.messages.length != 0) {
-			console.log('Resolving messages');
-			newMessage = convertToJsonString(resolve.messages[resolve.messages.length - 1]);
-			console.log(`New message found: ${newMessage}`);
-			publishMessage(client, newMessage);
-		}
-		else {
-			console.log('No new message yet.');
-		}
-	});
+    try {
+        console.log(`Fetch latest message from root ${root}`);
+        const response = Mam.fetch(root, mode, encryptionKey);
 
-	response.catch(error => {
-		console.log(`Resolve error: ${error}`);
-	});
+        response.then(resolve => {
+            console.log('Resolve response');
+
+            console.log(`nextRoot: ${resolve.nextRoot}`);
+            nextRoot = resolve.nextRoot;
+
+            if (resolve.messages.length != 0) {
+                console.log('Resolving messages');
+                newMessage = convertToJsonString(resolve.messages[resolve.messages.length - 1]);
+                console.log(`New message found: ${newMessage}`);
+                publishMessage(client, newMessage);
+            }
+            else {
+                console.log('No new message yet.');
+            }
+        }).catch(error => {
+            console.log(`Resolve error: ${error}`);
+        });
+    }
+    catch(err) {
+        console.log(`Error during fetch message and publish: ${err}`)
+    }
 }
 
 async function onClientConnection(client) {
