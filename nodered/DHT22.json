@@ -24,7 +24,7 @@
         "id": "b9f6f47c.1db638",
         "type": "switch",
         "z": "618298c4.a4f2a8",
-        "name": "Tem_Humid_Switch",
+        "name": "Temp_Humid_Switch",
         "property": "payload",
         "propertyType": "msg",
         "rules": [
